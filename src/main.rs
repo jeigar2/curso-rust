@@ -19,6 +19,17 @@ fn main() {
     // y transforma a entero
     let int_edad: u8 = edad.trim().parse().unwrap(); 
 
+    // mensaje a mostar en pantalla
+    println!("En que país nació:"); 
+    // debe ser mutable para recibir el pais
+    let mut pais: String = String::new(); 
+    // unwrap se utiliza para tratar los errores
+    std::io::stdin().read_line(&mut pais).unwrap(); 
+    // formatea el texto para eliminar saltos de línea y espacios en blanco.
+    pais = pais.trim().to_string(); 
+
+    println!("Que Dios te bendiga {} y también a tu país {}", nombre, pais);
+
     // {} es un placeholder 
     // cada uno de ello se reemplaza por el valor de las varibles recibidas 
     // en el resto de argumentos de la función (nombre, int_edad)
