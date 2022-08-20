@@ -23,3 +23,21 @@ Permitir la interacción del usuario con la aplicación a través de la interfaz
 
 - `let edad_int: u8 = edad.trim().parse().unwrap();`
   - **parse()** hace la conversión al tipo de dato definido en la variable que se asigna
+
+## Reto 2
+
+Pedir el nombre del país de nacimiento, y escribir un mensaje de bendición para la persona y el pais.
+
+salida esperada:
+
+```md
+Ingrese su nombre:
+_Alicia_
+Que Dios te bendiga _Alicia_
+Ingrese su edad:
+_34_
+En que país nació:
+_Australia_
+Que Dios te bendiga _Alicia_ y también a tu país _Australia_
+_Alicia_ tienes _34_ años
+```
