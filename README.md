@@ -1,43 +1,53 @@
 # Curso Básico de Rust
 
-## Recibiendo datos del usuario
+## Condicionales
 
-Permitir la interacción del usuario con la aplicación a través de la interfaz de línea de comandos.
+Rust permite desarrollar programas con lógica y condicionantes para realizar una u otra acción dependiendo el valor de las variables o el estado de ejecución del programa.
 
-### Inputs en Rust
+### if en Rust
 
-- Para recibir datos del usuario, se hace uso de algunas librerías internas de Rust que acceden al sistema operativo y permiten que el usuario ingrese datos por consola.
+Para escribir una condición en Rust hay que escribir `if`, y si quieres tratar la condición opuesta sería `else`
 
-- `std::io::stdin().read_line(&mut nombre).unwrap();`
-  - **std** es una librería de Rust para acceder al sistema operativo.
-  - **io** significa inputs/outputs,
-  - **stdin()** permite traer información
-  - **read_line()** indica que esa información será recibida por consola.
-  - **&mut nombre** es la variable donde guarda el dato ingresado por el usuario (Utiliza mut en las variables para indicar que la misma cambiará de valor).
-  - **unwrap()**, ayuda con el manejo de errores.
+En Rust los paréntesis no deben ponerse en la condición del if.
 
-### Cambiando el tipo de dato en Rust
+La condición utiliza operadores lógicos, igualdad de datos `==` o verificar si un número es mayor, menor o igual con `>, <, >= y <=`. Puedes tener varias condiciones con `&&` para un **y** lógico o un `||` para un **o** lógico.
 
-- Por defecto, los datos que ingresa el usuario por consola son del tipo String.
-- Si necesitas números enteros hay que convertir el tipo de dato
+## Reto 3
 
-- `let edad_int: u8 = edad.trim().parse().unwrap();`
-  - **parse()** hace la conversión al tipo de dato definido en la variable que se asigna
+Pedir el la pastilla roja o azul de Matrix, en función del color seleccionado mostrar un mensaje u otro, si pone cualquier otro valor, será incorrecto.
 
-## Reto 2
+salida esperada si escribe Azul:
 
-Pedir el nombre del país de nacimiento, y escribir un mensaje de bendición para la persona y el pais.
+```log
+¡Hola! Neo:
+Debes elegir si tomar:
+ - la pildora "roja" y seguir en Matrix
+ - la pildora "azul" y conocer el mundo real:
+AzUl
+Ha escogido la pildora AzUl
+Estamos en un mundo nuevo y descubrirás que has estado controlado por Matrix y las máquinas, ahora que conoces la verdad, eres parte de la resistencia.
+```
 
-salida esperada:
+salida esperada si escribe Roja:
 
-```md
-Ingrese su nombre:
-_Alicia_
-Que Dios te bendiga _Alicia_
-Ingrese su edad:
-_34_
-En que país nació:
-_Australia_
-Que Dios te bendiga _Alicia_ y también a tu país _Australia_
-_Alicia_ tienes _34_ años
+```log
+¡Hola! Neo:
+Debes elegir si tomar:
+ - la pildora "roja" y seguir en Matrix
+ - la pildora "azul" y conocer el mundo real:
+ROJA
+Ha escogido la pildora ROJA
+Todo esto que ha pasado, lo olvidarás y vivirás tu misma vida dentro de Matrix
+```
+
+salida esperada si escribes algo diferente a Roja o Azul, ejemplo verde
+
+```log
+¡Hola! Neo:
+Debes elegir si tomar:
+ - la pildora "roja" y seguir en Matrix
+ - la pildora "azul" y conocer el mundo real:
+verde
+Ha escogido la pildora verde
+solo puedes escoger el color de la pastilla "roja" o "azul" este mesanje se autodestruirá en 5 segundos
 ```
