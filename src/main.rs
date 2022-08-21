@@ -34,11 +34,9 @@ fn main() {
     let mut life = 100;
     let mut current_tag = FIRST_TAG;
     let mut last_record: String = "".to_string();
-    // let mut history_datas: Vec<HistoryData> = vec![];
     let mut history_datas: HashMap<String, HistoryData> = HashMap::new();
 
     let content: String = fs::read_to_string(FILENAME).unwrap();
-    // println!("{}", content);
 
     let mut rdr = ReaderBuilder::new().delimiter(b';').from_reader(content.as_bytes());
 
@@ -47,27 +45,15 @@ fn main() {
         let data = HistoryData::new(result);
         let record_tag = data.tag.clone();
         if data.data_type == SITUATION {
-            history_datas.insert(record_tag.clone(), data); // TODO el clone está repetido.
+            history_datas.insert(record_tag.clone(), data);
             last_record = record_tag;
         } else if data.data_type == OPTION {
             if let Some(_data) = history_datas.get_mut(&last_record) {
                 (*_data).options.push(data);
-                // println!("{}",(*_data).tag);
             }
 
         }
-
-        // let life = result.get(3).unwrap().trim();
-        // let life : i32 = life.parse().unwrap_or(0);
-
-        // let _data = HistoryData {
-        //     data_type:result.get(0).unwrap().trim().to_string(),
-        //     tag:result.get(1).unwrap().trim().to_string(),
-        //     _text:result.get(2).unwrap().trim().to_string(),
-        //     life:life
-        // };
-        //history_datas.push(data);
-        
+       
     }
 
     // Game loop
@@ -84,8 +70,6 @@ fn main() {
 
             if let Some(selection_option) = &data.options.get(selection){
                 current_tag = &selection_option.tag;
-            // } else if (selection == 77) {
-            //     break;
             } 
             else {
                 println!("Comando no valido");
@@ -104,8 +88,5 @@ fn main() {
             break;
         }
     }
-
-    //println!("{:?}", history_datas);
-    // println!("\n-----\n{:?}\n-----\n", history_datas["DERECHA"]);
 
 }
