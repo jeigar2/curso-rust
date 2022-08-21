@@ -2,12 +2,14 @@
 
 ## Creando una calculadora
 
-En esta primera versión vamos a permitir interpretar cadenas que tengan el operador de suma `+`, resta `-`, multiplicación `*` y división `/` a través de la consola y utilizando expresiones regulares.
+En esta segunda versión vamos a permitir interpretar cadenas que tengan el operador de suma `+`, resta `-`, multiplicación `*` y división `/` a través de la consola y utilizando expresiones regulares.
 
 - Suma: `(\d+)\s?\+\s?(\d+)`
 - Resta: `(\d+)\s?\-\s?(\d+)`
 - Multiplicación: `(\d+)\s?\*\s?(\d+)`
 - División: `(\d+)\s?/\s?(\d+)`
+
+Pero esto lo haremos con una función para eliminar el código repetido
 
 ### Utilización de dependencias en Rust
 
@@ -69,3 +71,41 @@ let nombre_plano: &str = &nombre;
 let nombre: String = "123".to_string();
 let nombre_plano: &str = nombre.as_str();
 ```
+
+## Declarando y llamando funciones en Rust
+
+El concepto de Funciones es un pedazo de código que puedes llamar y utilizar cuando necesites.
+
+La declaración de funciones en Rust se realiza con la palabra reservada `fn`. Ya la has visto antes en `fn main() {}` que es la función principal de tu aplicación y que se ejecuta siempre al iniciar la misma.
+Declara tu propia función de la siguiente manera:
+
+```rs
+fn main() {
+    sumar_numeros(10, 10);          // 20
+}
+
+fn sumar_numeros(num1: i32, num2: i32) {
+    let sum: i32 = num1 + num2;
+    println!("{}", sum);
+}
+```
+
+Las funciones reciben argumentos, puedes especificar el tipo de los mismos a lo igual que con una variable, para luego realizar una determinada lógica como la suma de dos números.
+
+### Retorno de valores de una función en Rust
+
+Las funciones pueden o no retornar un valor. Para hacerlo, indica el tipo de retorno de la siguiente manera:
+
+```rs
+fn main() {
+    let sum = sumar_numeros(10, 10);
+    println!("{}", sum);                // 20
+}
+
+fn sumar_numeros(num1: i32, num2: i32) -> i32 {
+    let sum: i32 = num1 + num2;
+    return sum;
+}
+```
+
+Indica el tipo de retorno luego del `->` y retorna una variable con la palabra reservada `return` para volver al flujo principal de tu código y utilizar ese valor.
