@@ -1,53 +1,71 @@
 # Curso Básico de Rust
 
-## Condicionales
+## Creando una calculadora
 
-Rust permite desarrollar programas con lógica y condicionantes para realizar una u otra acción dependiendo el valor de las variables o el estado de ejecución del programa.
+En esta primera versión vamos a permitir interpretar cadenas que tengan el operador de suma `+`, resta `-`, multiplicación `*` y división `/` a través de la consola y utilizando expresiones regulares.
 
-### if en Rust
+- Suma: `(\d+)\s?\+\s?(\d+)`
+- Resta: `(\d+)\s?\-\s?(\d+)`
+- Multiplicación: `(\d+)\s?\*\s?(\d+)`
+- División: `(\d+)\s?/\s?(\d+)`
 
-Para escribir una condición en Rust hay que escribir `if`, y si quieres tratar la condición opuesta sería `else`
+### Utilización de dependencias en Rust
 
-En Rust los paréntesis no deben ponerse en la condición del if.
+El respositorio de dependencias está en [https://crates.io/](https://crates.io/)
+Se agregan las dependencias en el archivo `Cargo.toml` del proyecto
+Para importarla se hace con `use` en el fichero de codigo que lo requiera
 
-La condición utiliza operadores lógicos, igualdad de datos `==` o verificar si un número es mayor, menor o igual con `>, <, >= y <=`. Puedes tener varias condiciones con `&&` para un **y** lógico o un `||` para un **o** lógico.
+Ejemplo
 
-## Reto 3
+```rs
+use regex::Regex;
 
-Pedir el la pastilla roja o azul de Matrix, en función del color seleccionado mostrar un mensaje u otro, si pone cualquier otro valor, será incorrecto.
-
-salida esperada si escribe Azul:
-
-```log
-¡Hola! Neo:
-Debes elegir si tomar:
- - la pildora "roja" y seguir en Matrix
- - la pildora "azul" y conocer el mundo real:
-AzUl
-Ha escogido la pildora AzUl
-Estamos en un mundo nuevo y descubrirás que has estado controlado por Matrix y las máquinas, ahora que conoces la verdad, eres parte de la resistencia.
+fn main() {
+    // ...
+}
 ```
 
-salida esperada si escribe Roja:
+## Utilizando Regex
 
-```log
-¡Hola! Neo:
-Debes elegir si tomar:
- - la pildora "roja" y seguir en Matrix
- - la pildora "azul" y conocer el mundo real:
-ROJA
-Ha escogido la pildora ROJA
-Todo esto que ha pasado, lo olvidarás y vivirás tu misma vida dentro de Matrix
+Se debe crear un `Regex::new()` y dentro agregar la cadena entre comillas de la expresión regular `r"(\d+)\s?([\+\-])\s?(\d+)"` precedida del caracter `r`, posteriormente agregamos el tratamiento de errores con `unwrap()`
+
+```rs
+let re_add = Regex::new(r"(\d+)\s?([\+\-])\s?(\d+)").unwrap();
 ```
 
-salida esperada si escribes algo diferente a Roja o Azul, ejemplo verde
+## Conversiones de datos en Rust
 
-```log
-¡Hola! Neo:
-Debes elegir si tomar:
- - la pildora "roja" y seguir en Matrix
- - la pildora "azul" y conocer el mundo real:
-verde
-Ha escogido la pildora verde
-solo puedes escoger el color de la pastilla "roja" o "azul" este mesanje se autodestruirá en 5 segundos
+### String a entero
+
+Hay varias formas de declarar una variable del tipo `String`:
+
+```rs
+let nombre = "123".to_string();
+let nombre: String = "123".to_string();
+let nombre = String::from("123");
+let mut nombre: String = String::new();
+nombre = "123".to_string();
+```
+
+Conviértelo a número entero con `parse()`, pero teniendo en cuenta de borrar los espacios en blanco con `trim()` para evitar inconvenientes y capturar los errores con `unwrap()`.
+
+```rs
+let number: i32 = nombre.trim().parse().unwrap();
+println!("{}", number);
+```
+
+### String vs. &str
+
+El tipo de dato `String` permite manipular una cadena de texto
+El tipo de dato `&str` contiene la referencia a un `String`, pero solo contiene su valor.
+Cuando le asignas a una variable un valor con dobles comillas `""`, las mismas crean un `&str`, por esto utilizamos `to_string()` para que retorne el tipo de dato en formato `String` y poder manipularlo. Y por este mismo motivo necesitas un `String` para hacer un `.trim().parse()` y convertir la variable al tipo entero.
+
+Para convertir un `String` a `&str`, solo agrega el `&` (Ampersand) delante del nombre de la variable o con `as_str()`.
+
+```rs
+let nombre: String = "123".to_string();
+let nombre_plano: &str = &nombre;
+
+let nombre: String = "123".to_string();
+let nombre_plano: &str = nombre.as_str();
 ```
